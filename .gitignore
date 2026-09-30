@@ -1,0 +1,8 @@
+# Compilação do Rust
+/target/
+**/*.rs.bk
+
+# Dependências do Node / Webpack (se utilizar bundlers)
+node_modules/
+.DS_Store
+*.log
