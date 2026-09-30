@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DLP WASM Engine - Playground de Teste</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.5;
+      }
+      .box {
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      textarea {
+        width: 100%;
+        height: 100px;
+        margin-top: 10px;
+      }
+      button {
+        background: #0066cc;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      code {
+        background: #f4f4f4;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🛡️ DLP WASM Engine — Teste de Prevenção</h1>
+
+    <div class="box">
+      <h3>1. Teste de Interceptação de Cola (Paste)</h3>
+      <p>
+        Tente colar um dado sensível na caixa abaixo (ex: AWS Key
+        <code>AKIAIOSFODNN7EXAMPLE</code> ou Cartão de Crédito Falso
+        <code>4532 0151 1283 0366</code>):
+      </p>
+      <textarea placeholder="Cole aqui seus dados..."></textarea>
+    </div>
+
+    <div class="box">
+      <h3>2. Teste de Interceptação de Rede (Fetch/XHR)</h3>
+      <p>
+        Clique no botão para simular um envio via
+        <code>POST /api/llm</code> contendo um Secret com alta entropia:
+      </p>
+      <button id="sendPayload">Enviar Requisição Suspeita</button>
+    </div>
+
+    <script>
+      document.getElementById("sendPayload").addEventListener("click", () => {
+        fetch("https://httpbin.org/post", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: "Analise meu codigo",
+            secretKey: "AKIAIOSFODNN7EXAMPLE_9x8z7y6w5v4u3t2s1r0",
+          }),
+        });
+      });
+    </script>
+  </body>
+</html>
