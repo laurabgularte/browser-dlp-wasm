@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Browser DLP WASM Engine",
+  "version": "1.0.0",
+  "description": "Engine client-side em WASM/Rust para prevenção de vazamento de dados (DLP) em tempo real.",
+  "permissions": ["storage", "activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/injector.js", "content/dom-listener.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "worker/dlp-worker.js",
+        "pkg/dlp_engine_wasm.js",
+        "pkg/dlp_engine_wasm_bg.wasm"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
